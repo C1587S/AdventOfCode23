@@ -1,7 +1,19 @@
 using Printf
+using ArgParse
 
 # Parameters
-INPUT_PATH = "/mnt/c/Users/scada/git/personal/AdventOfCode23/day_1/input.txt"
+s = ArgParseSettings()
+@add_arg_table s begin
+    "input_path"
+    required = true
+end
+parsed_args = parse_args(ARGS, s)
+INPUT_PATH = get(parsed_args, "input_path", "")
+
+if isempty(INPUT_PATH)
+    println("Error: The input path is missing!")
+    exit(1)
+end
 
 # 0. Function to get calibration value
 # ------------------------------------------------------

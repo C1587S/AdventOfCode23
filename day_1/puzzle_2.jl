@@ -1,11 +1,22 @@
 using Printf
+using ArgParse
 
 # Parameters
-INPUT_PATH = "/mnt/c/Users/scada/git/personal/AdventOfCode23/day_1/input2.txt"
+s = ArgParseSettings()
+@add_arg_table s begin
+    "input_path"
+    required = true
+end
+parsed_args = parse_args(ARGS, s)
+INPUT_PATH = get(parsed_args, "input_path", "")
+
+if isempty(INPUT_PATH)
+    println("Error: The input path is missing!")
+    exit(1)
+end
 
 # 0. Function to get calibration value
 # ------------------------------------------------------
-
 function map2number(int_str, position)
     str_int = lowercase(int_str)
 
@@ -57,8 +68,7 @@ function get_calibration_val(txt, verbose=true)
 
     first_match_mapped = map2number(matches[1].match, "start")
     last_match_mapped = map2number(matches[end].match, "end")
-
-    #@printf("%s (matches %s) (%s | %s)\n", txt, matches, first_match_mapped, last_match_mapped)
+    # prints for debuging
     @printf("%s (%s | %s)\n", txt, first_match_mapped, last_match_mapped)
 
     if !isempty(matches)
