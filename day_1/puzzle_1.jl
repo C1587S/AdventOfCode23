@@ -1,7 +1,7 @@
 using Printf
 
 # Parameters
-INPUT_PATH = "/mnt/c/Users/scada/git/personal/AdventOfCode23/day_1/input2.txt"
+INPUT_PATH = "/mnt/c/Users/scada/git/personal/AdventOfCode23/day_1/input.txt"
 
 # 0. Function to get calibration value
 # ------------------------------------------------------
@@ -12,16 +12,13 @@ function get_calibration_val(txt, verbose=true)
     if !isempty(matches)
         f_i = matches[1].match[1] # first int 
         l_i = matches[end].match[end] # lat int
-        # convert string to int
-        first_int = parse(Int64, f_i)
-        last_int = parse(Int64, l_i)
-
+        j_st = f_i * l_i
+        join_st = parse(Int64, j_st)
         # Calculate the sum
-        sum_int = first_int + last_int
         if verbose
-            @printf("%s: %i - %i, Sum: %i\n", txt, first_int, last_int, sum_int)
+            @printf("%s: join number%i\n", txt, join_st)
         end
-        return sum_int
+        return join_st #sum_int
     else
         if verbose
             println("No digits found in: ", txt)
@@ -29,7 +26,6 @@ function get_calibration_val(txt, verbose=true)
         return 0
     end
 end
-
 # ------------------------------------------------------
 # Main loop 
 global total_sum
